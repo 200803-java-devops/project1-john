@@ -12,7 +12,7 @@ public class App {
         server.setPort(8443);
         server.getConnector();
         server.addWebapp("/embed", new File("project/src/main/resources/").getAbsolutePath());
-        server.addServlet("/embed", "HelloServlet", new HelloServlet()).addMapping("/hello");
+        server.addServlet("/embed", "BuildServlet", new BuildServlet()).addMapping("/build");
         server.start();
     }
 }
