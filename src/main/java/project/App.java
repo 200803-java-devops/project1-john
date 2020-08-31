@@ -14,6 +14,7 @@ public class App {
         server.addWebapp("/embed", new File("src/main/resources/").getAbsolutePath());
         server.addServlet("/embed", "BuildServlet", new BuildServlet()).addMapping("/build");
         server.addServlet("/embed", "TestServlet", new TestServlet()).addMapping("/test");
+        server.addServlet("/embed", "PackageServlet", new PackageServlet()).addMapping("/package");
         try {
             server.start();
         } catch (LifecycleException e) {

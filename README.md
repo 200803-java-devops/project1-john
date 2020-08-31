@@ -7,4 +7,5 @@ For project 1, I will be building an automated build and deployment tool in java
 ## User Stories
 
 As a developer, I want to be able to confirm my project builds successfully so that changes pushed to github can be proven functional.
+As a developer, I want to be able to remotely run any unit tests for my program so that object functionalities can be confirmed after new code is added.
 As a user, I would like to be able to run a program built with maven/docker without the need to fuss with command line arguments so that I can use the program easily.
