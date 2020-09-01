@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import project.Services.BuildService;
+
 public class BuildTest {
 
     @Test

@@ -1,4 +1,4 @@
-package project;
+package project.Servlets;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,8 @@ import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import project.Services.TestService;
 
 public class TestServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;

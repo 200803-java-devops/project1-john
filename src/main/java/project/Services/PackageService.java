@@ -1,16 +1,16 @@
-package project;
+package project.Services;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class TestService {
+public class PackageService {
     
-    public String mavenTest(String execDirectory) throws IOException {
+    public String mavenPackage(String execDirectory) throws IOException {
         ProcessBuilder pBuilder = new ProcessBuilder();
         pBuilder = pBuilder.directory(new File(execDirectory));
-        pBuilder.command("cmd.exe", "/c", "mvn", "compile", "test", "-q");
+        pBuilder.command("cmd.exe", "/c", "mvn", "compile", "package", "-q");
         Process process = pBuilder.start();
         StringBuilder output = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -20,22 +20,24 @@ public class TestService {
                 output.append(line + "\n");
             }
         } catch (IOException e1) {
-            System.err.println("TestService.mavenTest reader IO exception");
+            System.err.println("PackageService.mavenPackage reader IO exception");
         }
         int exitCode = 1;
         try {
             exitCode = process.waitFor();
         } catch (InterruptedException e) {
-            System.err.println("TestService.mavenTest process interrupted");
+            System.err.println("PackageService.mavenPackage process interrupted");
         }
         if(exitCode == 0){
             if(output.toString().equals("")){
-                return "Tests Successful";
+                return "Package Successful";
             }else{
                 return output.toString();
             }
         }else{
+            System.err.println(exitCode);
             return "failure";
         }
     }
+    
 }

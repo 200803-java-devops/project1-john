@@ -1,40 +1,38 @@
-package project;
+package project.Services;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class GitService {
+public class TestService {
     
-    public String gitClone(String gitRepo) throws IOException {
+    public String mavenTest(String execDirectory) throws IOException {
         ProcessBuilder pBuilder = new ProcessBuilder();
-        pBuilder = pBuilder.directory(new File("."));
-        pBuilder.command("cmd.exe", "/c", "git", "clone", gitRepo);
+        pBuilder = pBuilder.directory(new File(execDirectory));
+        pBuilder.command("cmd.exe", "/c", "mvn", "compile", "test", "-q");
         Process process = pBuilder.start();
+        StringBuilder output = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line;
-        boolean cloneSuccess = false;
         try {
             while ((line = reader.readLine()) != null) {
-                if(line.substring(line.lastIndexOf(" ")+1).equals("done.")){
-                    cloneSuccess = true;
-                }
+                output.append(line + "\n");
             }
         } catch (IOException e1) {
-            System.err.println("gitservice.gitClone reader IO exception");
+            System.err.println("TestService.mavenTest reader IO exception");
         }
         int exitCode = 1;
         try {
             exitCode = process.waitFor();
         } catch (InterruptedException e) {
-            System.err.println("gitservice.gitClone process interrupted");
+            System.err.println("TestService.mavenTest process interrupted");
         }
         if(exitCode == 0){
-            if(cloneSuccess == true){
-                return gitRepo.substring(gitRepo.lastIndexOf("/")+1);
+            if(output.toString().equals("")){
+                return "Tests Successful";
             }else{
-                return "git clone did not work";
+                return output.toString();
             }
         }else{
             return "failure";

@@ -1,43 +1,43 @@
-package project;
+package project.Services;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class PackageService {
+public class GitService {
     
-    public String mavenPackage(String execDirectory) throws IOException {
+    public String gitClone(String gitRepo) throws IOException {
         ProcessBuilder pBuilder = new ProcessBuilder();
-        pBuilder = pBuilder.directory(new File(execDirectory));
-        pBuilder.command("cmd.exe", "/c", "mvn", "compile", "package", "-q");
+        pBuilder = pBuilder.directory(new File("."));
+        pBuilder.command("cmd.exe", "/c", "git", "clone", gitRepo);
         Process process = pBuilder.start();
-        StringBuilder output = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line;
+        boolean cloneSuccess = false;
         try {
             while ((line = reader.readLine()) != null) {
-                output.append(line + "\n");
+                if(line.substring(line.lastIndexOf(" ")+1).equals("done.")){
+                    cloneSuccess = true;
+                }
             }
         } catch (IOException e1) {
-            System.err.println("PackageService.mavenPackage reader IO exception");
+            System.err.println("gitservice.gitClone reader IO exception");
         }
         int exitCode = 1;
         try {
             exitCode = process.waitFor();
         } catch (InterruptedException e) {
-            System.err.println("PackageService.mavenPackage process interrupted");
+            System.err.println("gitservice.gitClone process interrupted");
         }
         if(exitCode == 0){
-            if(output.toString().equals("")){
-                return "Package Successful";
+            if(cloneSuccess == true){
+                return gitRepo.substring(gitRepo.lastIndexOf("/")+1);
             }else{
-                return output.toString();
+                return "git clone did not work";
             }
         }else{
-            System.err.println(exitCode);
             return "failure";
         }
     }
-    
 }
