@@ -16,11 +16,11 @@ public class App {
         server.setBaseDir(new File("target/tomcat/").getAbsolutePath());
         server.setPort(8443);
         server.getConnector();
-        server.addWebapp("/embed", new File("src/main/resources/").getAbsolutePath());
-        server.addServlet("/embed", "BuildServlet", new BuildServlet()).addMapping("/build");
-        server.addServlet("/embed", "TestServlet", new TestServlet()).addMapping("/test");
-        server.addServlet("/embed", "PackageServlet", new PackageServlet()).addMapping("/package");
-        server.addServlet("/embed", "GitServlet", new GitServlet()).addMapping("/git");
+        server.addWebapp("/jstib", new File("src/main/resources/").getAbsolutePath());
+        server.addServlet("/jstib", "BuildServlet", new BuildServlet()).addMapping("/build");
+        server.addServlet("/jstib", "TestServlet", new TestServlet()).addMapping("/test");
+        server.addServlet("/jstib", "PackageServlet", new PackageServlet()).addMapping("/package");
+        server.addServlet("/jstib", "GitServlet", new GitServlet()).addMapping("/git");
         try {
             server.start();
         } catch (LifecycleException e) {

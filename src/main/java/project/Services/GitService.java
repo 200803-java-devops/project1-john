@@ -7,19 +7,18 @@ import java.io.InputStreamReader;
 
 public class GitService {
     
-    public String gitClone(String gitRepo) throws IOException {
+    public String gitClone(String gitRepo, String execDirectory) throws IOException {
         ProcessBuilder pBuilder = new ProcessBuilder();
-        pBuilder = pBuilder.directory(new File("."));
+        pBuilder = pBuilder.directory(new File(execDirectory));
         pBuilder.command("cmd.exe", "/c", "git", "clone", gitRepo);
         Process process = pBuilder.start();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        StringBuilder output = new StringBuilder();
         String line;
-        boolean cloneSuccess = false;
         try {
             while ((line = reader.readLine()) != null) {
-                if(line.substring(line.lastIndexOf(" ")+1).equals("done.")){
-                    cloneSuccess = true;
-                }
+                output.append(line + "\n");
+                System.out.println(line);
             }
         } catch (IOException e1) {
             System.err.println("gitservice.gitClone reader IO exception");
@@ -31,13 +30,9 @@ public class GitService {
             System.err.println("gitservice.gitClone process interrupted");
         }
         if(exitCode == 0){
-            if(cloneSuccess == true){
-                return gitRepo.substring(gitRepo.lastIndexOf("/")+1);
-            }else{
-                return "git clone did not work";
-            }
+            return gitRepo.substring(gitRepo.lastIndexOf("/")+1, gitRepo.lastIndexOf("."));
         }else{
-            return "failure";
+            return "Process failed to terminate";
         }
     }
 }
