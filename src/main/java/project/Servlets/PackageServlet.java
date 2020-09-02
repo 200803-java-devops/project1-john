@@ -14,10 +14,11 @@ public class PackageServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp){
+        String remoteRepo = (String) req.getSession().getAttribute("remoteRepo");
         PackageService service = new PackageService();
         String output = "";  
         try {
-            output = service.mavenPackage(new File(".").getAbsolutePath());
+            output = service.mavenPackage(new File(remoteRepo).getAbsolutePath());
         } catch (IOException e) {
             System.err.println("PackageServlet.doGet IO exception running maven package");
             System.err.println(e.toString());

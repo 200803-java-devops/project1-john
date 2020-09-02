@@ -14,10 +14,11 @@ public class BuildServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp){
+        String remoteRepo = (String) req.getSession().getAttribute("remoteRepo");
         BuildService service = new BuildService();
         String output = "";  
         try {
-            output = service.mavenCompile(new File(".").getAbsolutePath());
+            output = service.mavenCompile(new File(remoteRepo).getAbsolutePath());
         } catch (IOException e) {
             System.err.println("BuildServlet.doGet IO exception running maven compile");
             System.err.println(e.toString());

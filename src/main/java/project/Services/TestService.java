@@ -35,7 +35,7 @@ public class TestService {
                 return output.toString();
             }
         }else{
-            return "failure";
+            return output.toString();
         }
     }
 }

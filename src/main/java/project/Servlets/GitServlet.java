@@ -3,6 +3,7 @@ package project.Servlets;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,8 @@ public class GitServlet extends HttpServlet {
         } catch (IOException e) {
             System.out.println("GitServlet IO exception on git clone");
         }
-        System.out.println(remoteRepo);
+        req.getSession().setAttribute("remoteRepo", remoteRepo);
+        RequestDispatcher rd = req.getRequestDispatcher("commands.html");
+        rd.include(req, resp);
     }
 }

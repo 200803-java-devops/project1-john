@@ -35,8 +35,7 @@ public class PackageService {
                 return output.toString();
             }
         }else{
-            System.err.println(exitCode);
-            return "failure";
+            return output.toString();
         }
     }
     

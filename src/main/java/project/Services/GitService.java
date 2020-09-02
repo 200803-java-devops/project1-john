@@ -32,7 +32,7 @@ public class GitService {
         if(exitCode == 0){
             return gitRepo.substring(gitRepo.lastIndexOf("/")+1, gitRepo.lastIndexOf("."));
         }else{
-            return "Process failed to terminate";
+            return Integer.toString(exitCode);
         }
     }
 }

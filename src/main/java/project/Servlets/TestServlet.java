@@ -14,10 +14,11 @@ public class TestServlet extends HttpServlet{
 
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp){
+        String remoteRepo = (String) req.getSession().getAttribute("remoteRepo");
         TestService service = new TestService();
         String output = "";  
         try {
-            output = service.mavenTest(new File(".").getAbsolutePath());
+            output = service.mavenTest(new File(remoteRepo).getAbsolutePath());
         } catch (IOException e) {
             System.err.println("TestServlet.doGet IO exception running maven compile");
             System.err.println(e.toString());

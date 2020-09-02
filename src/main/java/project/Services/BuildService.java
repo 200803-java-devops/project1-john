@@ -35,7 +35,7 @@ public class BuildService {
                 return output.toString();
             }
         }else{
-            return "failure";
+            return output.toString();
         }
     }
 }
