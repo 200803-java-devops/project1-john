@@ -10,7 +10,12 @@ public class BuildService {
     public String mavenCompile(String execDirectory) throws IOException {
         ProcessBuilder pBuilder = new ProcessBuilder();
         pBuilder = pBuilder.directory(new File(execDirectory));
-        pBuilder.command("cmd.exe", "/c", "mvn", "clean", "compile", "-q");
+        boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
+        if(isWindows){
+            pBuilder.command("cmd.exe", "/c", "mvn", "clean", "compile", "-q");
+        }else{
+            pBuilder.command("sh", "-c", "mvn", "clean", "compile", "-q");
+        }
         Process process = pBuilder.start();
         StringBuilder output = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));

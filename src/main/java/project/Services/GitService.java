@@ -10,7 +10,13 @@ public class GitService {
     public String gitClone(String gitRepo, String execDirectory) throws IOException {
         ProcessBuilder pBuilder = new ProcessBuilder();
         pBuilder = pBuilder.directory(new File(execDirectory));
-        pBuilder.command("cmd.exe", "/c", "git", "clone", gitRepo);
+        boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
+        if(isWindows){
+            pBuilder.command("cmd.exe", "/c", "git", "clone", gitRepo);
+        }else{
+            pBuilder.command("sh", "-c", "git", "clone", gitRepo);
+        }
+        
         Process process = pBuilder.start();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         StringBuilder output = new StringBuilder();

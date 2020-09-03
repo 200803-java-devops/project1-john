@@ -10,7 +10,12 @@ public class PackageService {
     public String mavenPackage(String execDirectory) throws IOException {
         ProcessBuilder pBuilder = new ProcessBuilder();
         pBuilder = pBuilder.directory(new File(execDirectory));
-        pBuilder.command("cmd.exe", "/c", "mvn", "compile", "package", "-q");
+        boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
+        if(isWindows){
+            pBuilder.command("cmd.exe", "/c", "mvn", "compile", "package", "-q");
+        }else{
+            pBuilder.command("sh", "-c", "mvn", "compile", "package", "-q");
+        }
         Process process = pBuilder.start();
         StringBuilder output = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
