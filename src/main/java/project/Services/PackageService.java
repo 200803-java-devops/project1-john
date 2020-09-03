@@ -7,6 +7,12 @@ import java.io.InputStreamReader;
 
 public class PackageService {
     
+    /**
+     * Service that runs maven package terminal command
+     * @param execDirectory directory of maven project
+     * @return
+     * @throws IOException
+     */
     public String mavenPackage(String execDirectory) throws IOException {
         ProcessBuilder pBuilder = new ProcessBuilder();
         pBuilder = pBuilder.directory(new File(execDirectory));

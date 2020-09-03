@@ -7,6 +7,12 @@ import java.io.InputStreamReader;
 
 public class TestService {
     
+    /**
+     * Service that runs maven test terminal command
+     * @param execDirectory directory of maven project
+     * @return
+     * @throws IOException
+     */
     public String mavenTest(String execDirectory) throws IOException {
         ProcessBuilder pBuilder = new ProcessBuilder();
         pBuilder = pBuilder.directory(new File(execDirectory));

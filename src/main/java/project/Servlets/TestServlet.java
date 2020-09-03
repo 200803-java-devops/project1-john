@@ -12,6 +12,9 @@ import project.Services.TestService;
 public class TestServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
+    /**
+     * Servlet that runs test service (mvn test) when receiving a get request from appropriate button
+     */
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp){
         String remoteRepo = (String) req.getSession().getAttribute("remoteRepo");

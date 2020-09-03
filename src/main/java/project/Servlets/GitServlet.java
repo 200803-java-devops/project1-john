@@ -14,6 +14,9 @@ import project.Services.GitService;
 public class GitServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Servlet post that takes user provided repo link and runs git clone service
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp){
         GitService gitGet = new GitService();

@@ -12,6 +12,9 @@ import project.Services.BuildService;
 public class BuildServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Servlet to run build service (mvn compile) when receiving get request from appropriate button
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp){
         String remoteRepo = (String) req.getSession().getAttribute("remoteRepo");

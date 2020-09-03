@@ -12,6 +12,9 @@ import project.Services.PackageService;
 public class PackageServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Servlet that runs package service (mvn package) when receiving get request from appropriate button
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp){
         String remoteRepo = (String) req.getSession().getAttribute("remoteRepo");

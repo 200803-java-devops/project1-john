@@ -7,14 +7,21 @@ import java.io.InputStreamReader;
 
 public class BuildService {
 
+    /**
+     * Service that runs maven compile terminal command on maven project
+     * @param execDirectory directory of maven project
+     * @return
+     * @throws IOException
+     */
     public String mavenCompile(String execDirectory) throws IOException {
         ProcessBuilder pBuilder = new ProcessBuilder();
         pBuilder = pBuilder.directory(new File(execDirectory));
         boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
+        String cmd = "mvn clean compile -q";
         if(isWindows){
-            pBuilder.command("cmd.exe", "/c", "mvn", "clean", "compile", "-q");
+            pBuilder.command("cmd.exe", "/c", cmd);
         }else{
-            pBuilder.command("sh", "-c", "mvn", "clean", "compile", "-q");
+            pBuilder.command("sh", "-c", cmd);
         }
         Process process = pBuilder.start();
         StringBuilder output = new StringBuilder();
