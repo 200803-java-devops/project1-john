@@ -40,11 +40,7 @@ public class PackageService {
             System.err.println("PackageService.mavenPackage process interrupted");
         }
         if(exitCode == 0){
-            if(output.toString().equals("")){
-                return "Package Successful";
-            }else{
-                return output.toString();
-            }
+            return "Package Successful";
         }else{
             return output.toString();
         }

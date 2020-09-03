@@ -17,6 +17,7 @@ public class TestServlet extends HttpServlet{
      */
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp){
+        java.util.logging.Logger logger = java.util.logging.Logger.getLogger(this.getClass().getName());
         String remoteRepo = (String) req.getSession().getAttribute("remoteRepo");
         TestService service = new TestService();
         String output = "";  
@@ -28,6 +29,7 @@ public class TestServlet extends HttpServlet{
         }
         try {
             resp.getWriter().println(output);
+            logger.info(java.time.LocalTime.now() + " Test Service Called");
         } catch (IOException e) {
             System.err.println("TestServlet.doGet IO exception on getWriter");
         }

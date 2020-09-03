@@ -40,11 +40,7 @@ public class TestService {
             System.err.println("TestService.mavenTest process interrupted");
         }
         if(exitCode == 0){
-            if(output.toString().equals("")){
-                return "Tests Successful";
-            }else{
-                return output.toString();
-            }
+            return "Tests Successful";
         }else{
             return output.toString();
         }

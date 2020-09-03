@@ -17,6 +17,7 @@ public class PackageServlet extends HttpServlet{
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp){
+        java.util.logging.Logger logger = java.util.logging.Logger.getLogger(this.getClass().getName());
         String remoteRepo = (String) req.getSession().getAttribute("remoteRepo");
         PackageService service = new PackageService();
         String output = "";  
@@ -28,6 +29,7 @@ public class PackageServlet extends HttpServlet{
         }
         try {
             resp.getWriter().println(output);
+            logger.info(java.time.LocalTime.now() + " Package Service Called");
         } catch (IOException e) {
             System.err.println("PackageServlet.doGet IO exception on getWriter");
         }

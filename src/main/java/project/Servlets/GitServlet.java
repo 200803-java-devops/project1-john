@@ -19,6 +19,7 @@ public class GitServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp){
+        java.util.logging.Logger logger = java.util.logging.Logger.getLogger(this.getClass().getName());
         GitService gitGet = new GitService();
         String repo = req.getParameter("repo");
         String remoteRepo = "";
@@ -29,6 +30,7 @@ public class GitServlet extends HttpServlet {
         }
         req.getSession().setAttribute("remoteRepo", remoteRepo);
         RequestDispatcher rd = req.getRequestDispatcher("commands.html");
+        logger.info(java.time.LocalTime.now() + " Git Clone Service Called");
         try {
             rd.include(req, resp);
         } catch (ServletException e) {

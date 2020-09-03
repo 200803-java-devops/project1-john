@@ -13,7 +13,7 @@ import project.Servlets.TestServlet;
 public class App {
     public static void main( String[] args ) {
         Tomcat server = new Tomcat();
-        //server.setBaseDir(new File("target/tomcat/").getAbsolutePath());
+        java.util.logging.Logger logger = java.util.logging.Logger.getLogger("Server Main");
         server.setPort(8443);
         server.getConnector();
         server.addWebapp("/jstib", new File("./").getAbsolutePath());
@@ -22,6 +22,7 @@ public class App {
         server.addServlet("/jstib", "PackageServlet", new PackageServlet()).addMapping("/package");
         server.addServlet("/jstib", "GitServlet", new GitServlet()).addMapping("/git");
         try {
+            logger.info("Starting Server");
             server.start();
         } catch (LifecycleException e) {
             System.err.println("lifecycle exception on server start");
