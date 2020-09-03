@@ -13,10 +13,10 @@ import project.Servlets.TestServlet;
 public class App {
     public static void main( String[] args ) {
         Tomcat server = new Tomcat();
-        server.setBaseDir(new File("target/tomcat/").getAbsolutePath());
+        //server.setBaseDir(new File("target/tomcat/").getAbsolutePath());
         server.setPort(8443);
         server.getConnector();
-        server.addWebapp("/jstib", new File("src/main/resources/").getAbsolutePath());
+        server.addWebapp("/jstib", new File("./").getAbsolutePath());
         server.addServlet("/jstib", "BuildServlet", new BuildServlet()).addMapping("/build");
         server.addServlet("/jstib", "TestServlet", new TestServlet()).addMapping("/test");
         server.addServlet("/jstib", "PackageServlet", new PackageServlet()).addMapping("/package");
