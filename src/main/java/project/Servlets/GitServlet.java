@@ -15,7 +15,7 @@ public class GitServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp){
         GitService gitGet = new GitService();
         String repo = req.getParameter("repo");
         String remoteRepo = "";
@@ -26,6 +26,12 @@ public class GitServlet extends HttpServlet {
         }
         req.getSession().setAttribute("remoteRepo", remoteRepo);
         RequestDispatcher rd = req.getRequestDispatcher("commands.html");
-        rd.include(req, resp);
+        try {
+            rd.include(req, resp);
+        } catch (ServletException e) {
+            System.out.println("GitServlet post servlet exception");
+        } catch (IOException e) {
+            System.out.println("GitServlet post IO exception");
+        }
     }
 }
